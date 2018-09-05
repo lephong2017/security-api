@@ -1,0 +1,124 @@
+ .container-contact{
+    width: 100%;
+    background-color: white;
+    box-shadow:none;
+    margin:0;
+    padding:0;
+    .paper {
+        text-align: center;
+        color: white;
+        box-shadow:none;
+        border:none; 
+        .menu-header-contact{
+            flex-grow: 1;
+            z-index: -2;
+            position: relative;
+            display: flex;
+            .contentItemContact{
+                height:100%;
+                .content {
+                    margin-top:64px;
+                    max-height:500px;
+                    overflow-y:scroll;
+                    padding-right:10px;
+                    flex-grow: 1;
+                    background-color:white;
+                    .toolbar {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                      }
+                    .listItemContent{
+                        box-sizing: border-box;
+                        background-color: white;
+                        box-shadow:none;
+                        flex-grow: 1;
+                        display:flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        .SearchListItem{
+                            box-sizing: border-box;
+                            border-top:1px outset;
+                            border-left:1px outset;
+                            border-bottom:1px inset;
+                            border-right: 1px inset;
+                            order: 1;   
+                            width: 30%;
+                            .listItem{
+                                border-top:1px outset;
+                            }
+                            .row-item{
+                                max-height: 400px;
+                                margin-top:5px;
+                                overflow-x:scroll;
+                                width:100%;
+                            }
+                        }
+                        .FormContent{
+                            box-sizing: border-box;
+                            border-top:1px outset;
+                            border-left:1px outset;
+                            border-bottom:1px inset;
+                            border-right: 1px inset;
+                            overflow:hidden;
+                            width:70%;
+                            
+                        }
+                        @media screen and (max-width:760px) {
+                            flex-direction:column;
+                            justify-content: flex-end;
+                            flex-wrap: nowrap;
+                            .SearchListItem{
+                                width:100%;
+                            }
+                            .FormContent{
+                                width:100%;
+                            }
+                        }
+                    }
+                }
+            }
+            .menu-content-left{
+                width: 100%;
+                max-width: 360px;
+                background-color:hsla(0,0%,100%,.65);
+                .listSubheader{
+                    min-height: 64px;
+                    background-color:black;
+                    text-transform: uppercase;
+                    font-size: 21px;
+                    font-weight: 300px;
+                    line-height: 64px;
+                    letter-spacing: 3px;
+                    color: #F9F9F9;
+                    display: block;
+                    text-decoration: none;
+                }
+                .menu{
+                    max-height: 600px; 
+                    background:transparent;
+                    color:white;
+                    background-color:#001529;
+                    opacity: 0.9;
+                    filter: alpha(opacity=60);
+                    overflow-y: auto;
+                    overflow-x:hidden;
+                    .textInMenu{
+                        color:#fff;
+                        font-size: 21px;
+                    }
+                    .nested {
+                        padding-left: 10 * 4px,
+                    }
+                }
+                // .menu:container(min-width:100px){
+                //     .listItemText-menu{
+                //         display: none;
+                //     }
+                // }
+            }
+           
+        }
+
+    }
+ }

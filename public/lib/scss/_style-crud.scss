@@ -1,0 +1,38 @@
+.container-crud{
+    margin:20px;
+    padding:0;
+    .container-content{
+        .row{ 
+            display: flex;
+        }
+        .container-table{
+            margin:5px;
+            padding:5px; 
+            .row-button{
+                .button-left{ 
+                    float: left;
+                } 
+                .button-right{ 
+                   
+                    .backGround-dropdown{
+                        background-color:white;
+                        border:none;
+                        box-shadow: none;
+                    }
+                    margin-left: 10px;
+                    float: right;
+                    text-align: right;
+                }
+
+            }
+            .button-table{
+                text-align: center;
+            }
+        }
+    }
+    .dropdown-menu {
+        height: 120px;
+        width:200px;
+        overflow-y: scroll;
+    }
+}

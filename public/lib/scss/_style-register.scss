@@ -1,0 +1,119 @@
+.container-register{
+    flex-grow: 1;
+    background-image: url("https://isomorphic.redq.io/static/media/work.56bf9122.jpg");
+    height:100%;
+    width:100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0,0,0,0.6);
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+    .backgroundColor{
+        background-color: rgba(0,0,0,0.6);
+        .paper{
+            padding-top: $unit*10;
+            padding: $unit * 2;
+            padding-right: $unit *7;
+            padding-left:$unit * 7;
+            text-align: center;
+            box-shadow:none;
+            height:100vh;
+            overflow: auto;
+            .frameButton{
+                border-top: 1px dashed;
+                margin-top:20px;
+                margin-bottom: 20px;
+                padding:20px;
+                .buttonPrimary{
+                    text-align:center;
+                    border-radius: 3;
+                    border: 0;
+                    color: CYAL;
+                    width:100%;
+                    height: 48px;
+                    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+                    margin-top:10px;
+                }
+                .btnRed{ 
+                    text-align:center;
+                    border-radius: 3;
+                    border: 0;
+                    color: white;
+                    width:100%;
+                    height: 48px;
+                    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+                    margin-top:10px;
+                    background-color:#dd4b39; 
+                    background:#dd4b39;
+                    &:hover {
+                        background-color: #dd4b70;
+                        background-repeat: no-repeat;
+                        border: none;
+                        cursor:pointer;
+                        overflow: hidden;
+                        outline:none;
+                        padding: '0px';
+                    }
+                }
+                .btnOrange{
+                    text-align:center;
+                    border-radius: 3;
+                    border: 0;
+                    color: white;
+                    width:100%;
+                    height: 48px;
+                    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+                    margin-top:10px;
+                    background-color:#e14615; 
+                    background:#e14615;
+                    &:hover {
+                        background-color: #e14655;
+                        background-repeat: no-repeat;
+                        border: none;
+                        cursor:pointer;
+                        overflow: hidden;
+                        outline:none;
+                        padding: 0px;
+                    }
+                }
+                .btnYellow{
+                    text-align:center;
+                    border-radius: 3;
+                    border: 0;
+                    color: white;
+                    width:100%;
+                    height: 48px;
+                    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+                    margin-top:10px;
+                    background-color:#FFCA28; 
+                    background:#FFCA28;
+                    &:hover {
+                        background-color: #FFCA88;
+                        background-repeat: no-repeat;
+                        border: none;
+                        cursor:pointer;
+                        overflow: hidden;
+                        outline:none;
+                        padding: 0px;
+                    }
+                }
+            }
+            .textLinkCreate{
+                color: #1890ff;
+                background-color: transparent;
+                text-decoration: none;
+                outline:none; 
+                cursor: pointer;
+                padding-bottom:30px;
+            }
+            .container-form{
+                padding:20px;
+                .formInline{
+                    width:100%;
+                }
+            }
+        }
+    }
+}
