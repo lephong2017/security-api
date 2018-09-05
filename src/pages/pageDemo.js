@@ -1,14 +1,16 @@
 
 import React, { Component } from 'react';
+import  'babel-polyfill';
 import * as Oidc from 'oidc-client';
 import axios from 'axios';
 const config = {
-    authority: "https://identityserverphucthinh.azurewebsites.net",
+    authority: "https://identityserverphucthinh.azurewebsites.net", 
+    // authority: "https://demo.identityserver.io/",
     client_id: "js",
-    redirect_uri: "http://localhost:3000/callback.html",
+    redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/callback`,
     response_type: "id_token token",
     scope:"openid profile api1",
-    post_logout_redirect_uri : "http://localhost:3000/index.html",
+    post_logout_redirect_uri :`${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/callback`,
 };
 const mgr = new Oidc.UserManager(config);
 
@@ -37,6 +39,7 @@ export default class ABCD extends Component{
         console.log(res);
     }
     login=()=> {
+        console.log(mgr);
         mgr.signinRedirect();
     }
     

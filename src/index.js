@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { createStore, applyMiddleware } from 'redux';
 import appReducers from './redux/index';
 import { Provider } from 'react-redux';
+import  'babel-polyfill';
 import thunk from 'redux-thunk';
 const store = createStore(
     appReducers,
