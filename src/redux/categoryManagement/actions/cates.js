@@ -1,11 +1,11 @@
 import * as Types from './../constants/ActionType';
 import {callApis} from 'utils/securityAPI/apiCaller';
+// import callApi from 'utils/CallAPI/apiCallerS';
 export const actFetchCategoryProductRequest = () => {
-    var resData = callApis(`RefProductCategories/getAllRefProductCategories`, 'GET', null);
     return (dispatch) => {
-            // console.log(res.data);
-            Promise.resolve(resData).then((a)=>{
-                dispatch(actFetchCategoryProduct(a));
+           return callApis(`RefProductCategories/getAllRefProductCategories`, 'GET', null).then((a)=>{
+                // console.log(a.data);    
+                dispatch(actFetchCategoryProduct(a.data));
             });
     }
 };

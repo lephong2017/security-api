@@ -2,70 +2,30 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert'; 
 import { connect } from 'react-redux';
-import { actAddCategoryRequest, actUpdateCategoryRequest ,actGetCategoryRequest } from 'redux/categoryManagement/actions/index';
-import {actFetchCategoryProductRequest} from 'redux/categoryManagement/actions/cates';
-import DataForm from 'components/form/dataForm';
+import { actAddCategoryRequest, actUpdateCategoryRequest, actGetCategoryRequest } from 'redux/categoryManagement/actions/index';
+import {FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
+
 class CategoryActionPage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            productCategoryCode: '',
-            productCategoryDescription: '',
+            id: '',
+            txtDescription: '',
             addAction:false,
             validationStateID:null,
             validationStateCate:null,
             pagination:[],
-            cols:[]
         };
     }
-    componentDidMount(){
-        this.props.fetchAllCategory();
-        const cols = [
-            {
-                type: "INPUT",
-                keyID: "productCategoryCode",
-                label: "Mã loại sản phẩm",
-                placeholder: "Nhap mã loại sản phẩm",
-                name: "productCategoryCode",
-                value: "21",
-                action: this.test,
-                validationStateID:this.state.validationStateID,
-            },
-            {
-                type: "INPUT",
-                keyID: "productCategoryDescription",
-                label: "Mô tả loại sản phẩm",
-                placeholder: "Nhập mô tả",
-                name: "productCategoryDescription",
-                value: "2", 
-                action: this.test,
-                validationStateCate:this.state.validationStateCate
-            },
-        ];
-        this.setState({cols:cols});
-    }
+
     componentWillMount() {
-        this.props.fetchAllCategory();
         var { match } = this.props;
         if (match) { // update
             var id = match.params.id;
             var pagination = match.params.pagination;
             this.setState({pagination:pagination.split(",")},()=>{console.log(this.state.pagination)});
             this.props.onEditCategory(id);
-            const cols = [
-                {
-                    type: "INPUT",
-                    keyID: "productCategoryDescription",
-                    label: "Mô tả loại sản phẩm",
-                    placeholder: "Nhập mô tả",
-                    name: "productCategoryDescription",
-                    value: "2", 
-                    action: this.test,
-                    validationStateCate:this.state.validationStateCate
-                },
-            ];
-            this.setState({cols:cols});
         } else{
             this.setState({
                 addAction:true,
@@ -73,7 +33,7 @@ class CategoryActionPage extends Component {
                 txtDescription: '',
             });
         }
-      
+        
     }
 
     componentWillReceiveProps(nextProps) {
@@ -81,22 +41,9 @@ class CategoryActionPage extends Component {
             if(nextProps && nextProps.itemEditing){
                 var {itemEditing} = nextProps;
                 this.setState({
-                    productCategoryCode : itemEditing.productCategoryCode,
-                    productCategoryDescription : itemEditing.productCategoryDescription,
-                });
-                const cols = [
-                    {
-                         type: "INPUT",
-                         keyID: "productCategoryDescription",
-                         label: "Mô tả loại sản phẩm",
-                         placeholder: "Nhập mô tả",
-                         name: "productCategoryDescription",
-                         value:this.state.productCategoryDescription, 
-                         action: this.onChange,
-                         validationStateCate:this.state.validationStateCate
-                     },
-                 ];
-                 this.setState({cols:cols});
+                    id : itemEditing.productCategoryCode,
+                    txtDescription : itemEditing.productCategoryDescription,
+                })
             }
         }
     }
@@ -109,18 +56,18 @@ class CategoryActionPage extends Component {
         this.setState({
             [name]: value
         });
-        if(name+''==="productCategoryDescription") this.setState({validationStateName:"success"});
-        if(name+''==="productCategoryCode") this.setState({validationStateID:"success"});
+        if(name+''==="txtDescription") this.setState({validationStateName:"success"});
+        if(name+''==="id") this.setState({validationStateID:"success"});
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         if (this.state.addAction===false) {
-            var { productCategoryCode, productCategoryDescription } = this.state;
-            console.log("update cate act: id:"+productCategoryCode +" name:"+ productCategoryDescription );
+            var { id, txtDescription } = this.state;
+            console.log("update cate act: id:"+id +" name:"+ txtDescription );
             var Category = {
-                cateId: productCategoryCode,
-                productCategoryDescription: productCategoryDescription,
+                cateId: id,
+                productCategoryDescription: txtDescription,
             };
            
             if(Category.cateId===undefined||Category.cateId===''||
@@ -140,17 +87,17 @@ class CategoryActionPage extends Component {
                 this.setState({
                     validationStateID:null,
                     validationStateName:null,
-                    productCategoryCode:'', 
-                    productCategoryDescription:'',
+                    id:'', 
+                    txtDescription:'',
                 });
                 this.props.history.goBack();
             }
         } else {
-            let { productCategoryCode, productCategoryDescription} = this.state;
-            console.log("add act: id:"+productCategoryCode +" name:"+ productCategoryDescription );
+            let { id, txtDescription} = this.state;
+            console.log("add act: id:"+id +" name:"+ txtDescription );
             let Category = {
-                productCategoryCode: productCategoryCode,
-                productCategoryDescription: productCategoryDescription,
+                productCategoryCode: id,
+                productCategoryDescription: txtDescription,
             };
             if(Category.productCategoryCode===undefined||Category.productCategoryCode===''||
                 Category.productCategoryDescription===undefined||Category.productCategoryDescription===''){
@@ -169,8 +116,8 @@ class CategoryActionPage extends Component {
                 this.setState({
                     validationStateID:null,
                     validationStateName:null,
-                    productCategoryCode:'', 
-                    productCategoryDescription:'',
+                    id:'', 
+                    txtDescription:'',
                 });
                 this.props.history.goBack();
             }
@@ -179,10 +126,9 @@ class CategoryActionPage extends Component {
 
    
     render() {
-        var { productCategoryCode } = this.state;
-        var {categorys} = this.props;
-        if(productCategoryCode===null || productCategoryCode===undefined){
-            productCategoryCode ="";
+        var { txtDescription } = this.state;
+        if(txtDescription===null || txtDescription===undefined){
+            txtDescription ="";
         }
         if(this.state.addAction){
             return (
@@ -190,7 +136,36 @@ class CategoryActionPage extends Component {
                     <div className="row">
                         <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <form onSubmit={this.onSubmit}>
-                                <DataForm columns={this.state.cols}  />
+                                <FormGroup
+                                    controlId="formBasicText"
+                                    validationState={this.state.validationStateID}
+                                >
+                                    <div className="form-group">
+                                        <ControlLabel>Mã loại sản phẩm: </ControlLabel>
+                                        <FormControl
+                                            type="text"
+                                            placeholder="Enter text"
+                                            onChange={this.onChange}
+                                            name="id"
+                                        />
+                                        <FormControl.Feedback />
+                                    </div>
+                                </FormGroup>
+                                <FormGroup
+                                    controlId="formBasicText"
+                                    validationState={this.state.validationStateName}
+                                >
+                                    <div className="form-group">
+                                        <ControlLabel>Mô tả loại sản phẩm: </ControlLabel>
+                                        <FormControl
+                                            type="text"
+                                            placeholder="Enter text"
+                                            onChange={this.onChange}
+                                            name="txtDescription"
+                                        />
+                                        <FormControl.Feedback />
+                                    </div>
+                                </FormGroup>
                                 <Link to="/cate-list" className="btn btn-danger mr-5">
                                     <i className="glyphicon glyphicon-arrow-left"></i> Trở Lại
                                 </Link>
@@ -208,7 +183,22 @@ class CategoryActionPage extends Component {
                 <div className="row">
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <form onSubmit={this.onSubmit}>
-                        <DataForm columns={this.state.cols} listObj={categorys} />
+                        <FormGroup
+                            controlId="formBasicText"
+                            validationState={this.state.validationStateName}
+                        >
+                            <div className="form-group">
+                                <ControlLabel>Mô tả loại sản phẩm: </ControlLabel>
+                                <FormControl
+                                    value={txtDescription}
+                                    type="text"
+                                    placeholder="Enter text"
+                                    onChange={this.onChange}
+                                    name="txtDescription"
+                                />
+                                <FormControl.Feedback />
+                            </div>
+                        </FormGroup>
                         <Link to="/cate-list" className="btn btn-danger mr-5">
                             <i className="glyphicon glyphicon-arrow-left"></i> Trở Lại
                         </Link>
@@ -225,9 +215,6 @@ class CategoryActionPage extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("============a");
-    console.log(state);
-    console.log("============a");
     return {
         itemEditing : state.itemCateEditing,
         categorys: state.categorys_index,
@@ -241,9 +228,6 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         onUpdateCategory: (Category,pageIndex,pageSize,iSearch) => {
             dispatch(actUpdateCategoryRequest(Category,pageIndex,pageSize,iSearch));
-        },
-        fetchAllCategory: () => {
-            dispatch(actFetchCategoryProductRequest());
         },
         onEditCategory : (id) => {
             dispatch(actGetCategoryRequest(id));

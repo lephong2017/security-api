@@ -7,10 +7,10 @@ import matchSorter from 'match-sorter';
 import 'react-table/react-table.css';
 import swal from 'sweetalert';
 import MyButton from 'components/button/Button';
-import * as Msal from 'msal';
 
-import {applicationConfig} from 'utils/securityAPI/apiCaller';
 
+import {login,logout} from 'utils/securityAPI/apiCaller';
+import {ACCESS_TOKEN} from 'settings/sessionStorage';
 import {actFetchCategoryRequest, actDeleteCategoryRequest, searchCategoryRequest} from 'redux/categoryManagement/actions/index';
 import {FormGroup,FormControl,Form,Button} from 'react-bootstrap';
 class CateListPage extends Component {  
@@ -24,34 +24,9 @@ class CateListPage extends Component {
             listPageVisitFilter:[1],
         };
     }
-    login=()=> {
-        var clientApplication = new Msal.UserAgentApplication(applicationConfig.clientID, applicationConfig.authority, function (errorDesc, token, error, tokenType) {
-        });
-        var that =this;
-        clientApplication.loginPopup(applicationConfig.b2cScopes).then( (idToken) =>{
-            clientApplication.acquireTokenSilent(applicationConfig.b2cScopes).then( (accessToken)=> {
-                sessionStorage.setItem("accessToken",accessToken);
-                console.log(accessToken +" phong 1");
-                that.componentDidMount();
-                that.forceUpdate();
-            }, function (error) {
-                clientApplication.acquireTokenPopup(applicationConfig.b2cScopes).then(function (accessToken) {
-                    sessionStorage.setItem("accessToken",accessToken);
-                    that.componentDidMount();
-                    that.forceUpdate();
-                    console.log(accessToken+" phong 2");
-                }, function (error) {
-                    console.log("Error acquiring the popup:\n" + error);
-                });
-           
-            })
-        }, function (error) {
-            console.log("Error during login:\n" + error);
-        });
-        this.render();
-    }
     componentDidMount(){
-        if(sessionStorage.getItem('accessToken')!==null) {
+        var ss =sessionStorage.getItem(ACCESS_TOKEN);
+        if(ss!==null){
             var {pageSize,pageIndex,iSearch} = this.state;
             this.props.fetchAllCategory(pageSize,pageIndex,iSearch);
         }
@@ -59,7 +34,8 @@ class CateListPage extends Component {
     componentWillMount(){
         // Gọi trước khi component đc render lần đầu tiên 
         var {pageSize,pageIndex,iSearch} = this.state;
-        if(sessionStorage.getItem('accessToken')!==null) {
+        var ss =sessionStorage.getItem(ACCESS_TOKEN);
+        if(ss!==null){
             this.props.fetchAllCategory(pageSize,pageIndex,iSearch);
         }
     }
@@ -118,26 +94,21 @@ class CateListPage extends Component {
             }
         });
     }
-    
-    logout=()=> {
-        var clientApplication = new Msal.UserAgentApplication(applicationConfig.clientID, applicationConfig.authority, function (errorDesc, token, error, tokenType) {
-        });
-        clientApplication.logout();
-        sessionStorage.removeItem('accessToken');
-        // this.forceUpdate();
-        this.render();
-    }
 
     render() {
         var { isFetchingCategory,categorys,fetchAllCategory,searchCategory } = this.props;
-       return (sessionStorage.getItem('accessToken')===null) ?
+        var ss =sessionStorage.getItem(ACCESS_TOKEN);
+        if(ss!==null){
+            var k =JSON.parse(ss);
+            // console.log(k.access_token);
+        }
+       return (ss===null) ?
             (<div>
                <h1 style={{color:'red'}}>Để xem chức năng này bạn cần phải đăng nhập trước!!!</h1>
-                <Button onClick={this.login}>Đăng nhập</Button>
+                <Button onClick={login}>Đăng nhập</Button>
            </div>)
         :
          (<div className="container-content">
-               
                 <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div className="container-table">
@@ -148,7 +119,7 @@ class CateListPage extends Component {
                                     </Link>
                                 </div>
                                 <div className="button-right" >
-                                    <Button style={{float:'right'}} onClick={this.logout}>Đăng xuất</Button>
+                                    <Button style={{float:'right'}} onClick={logout}>Đăng xuất</Button>
                                 </div>
                                 <div className="button-right" >
                                     <Form inline onSubmit={this.searchHandle}>

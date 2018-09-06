@@ -9,7 +9,7 @@ export default class extends Component{
                     <ControlLabel>{label}</ControlLabel>
                     <FormControl
                         type="text"
-                        placeholder={placeholder}
+                        placeholder={placeholder} 
                         onChange={actionOnchange}
                         name={name}
                         defaultValue={value}

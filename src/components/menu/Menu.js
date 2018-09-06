@@ -12,11 +12,11 @@ const menus = [
         to : '/cate-list',
         exact : false
     },
-    {
-        name : 'Identity',
-        to : '/security-api',
-        exact : false
-    },
+    // {
+    //     name : 'Identity',
+    //     to : '/security-api',
+    //     exact : false
+    // },
    
 ]
 

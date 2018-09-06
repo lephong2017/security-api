@@ -3,7 +3,6 @@ import {callApis} from 'utils/securityAPI/apiCaller';
 import callApi from 'utils/CallAPI/apiCaller';
 
 export const actFetchCategoryRequest = (pageSize,pageIndex,StringFilter) => {
-    var resData = callApis(`RefProductCategories/FilterCategory/${pageSize}/${pageIndex}/${StringFilter}`, 'GET', null);
     var total =0;
     callApi(`/RefProductCategories/CountCategoryFilter/${StringFilter}/false`, 'GET', null).then(res => {
         total = res.data;
@@ -11,8 +10,8 @@ export const actFetchCategoryRequest = (pageSize,pageIndex,StringFilter) => {
 
     return (dispatch) => {
         dispatch(actFetching(true));
-        Promise.resolve(resData).then((a)=>{
-            dispatch(actFetchCategory(a,pageIndex,pageSize,total));
+        callApi(`RefProductCategories/FilterCategory/${pageSize}/${pageIndex}/${StringFilter}`, 'GET', null).then((a)=>{
+            dispatch(actFetchCategory(a.data,pageIndex,pageSize,total));
         });
         dispatch(actFetching(false));
     };
@@ -79,8 +78,6 @@ export const actAddCategory = (Category) => {
 
 export const actUpdateCategoryRequest = (Category,pageIndex,pageSize,StringFilter) => {
     var condition = (StringFilter===0||StringFilter==="ALL"||StringFilter==='')?false:true;
-    console.log(Category);
-    console.log("================");
     return (dispatch) => {
         return callApi(`RefProductCategories/editRefProductCategories/id?id=${Category.cateId}`, 'PUT', Category).then(res => {
             var total =0;

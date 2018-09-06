@@ -1,0 +1,1 @@
+export const ACCESS_TOKEN = 'oidc.user:https://identityserverphucthinh.azurewebsites.net:js';
