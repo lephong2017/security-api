@@ -18,7 +18,7 @@ export const login=()=> {
 export const callApis= (endpoint,method='GET',body)=> {
    return mgr.getUser().then((user) =>{
          return  axios({
-            url: `${Config.API_URL_S}/${endpoint}`,
+            url: `${Config.API_URL}/${endpoint}`,
             method,
             headers:{
                 'access-control-request-origin':'*',
