@@ -4,7 +4,7 @@ import  Oidc from 'oidc-client';
 import * as Config from 'redux/categoryManagement/constants/Config';
 const config = { 
     authority: "https://identityserverphucthinh.azurewebsites.net", 
-    client_id: "local",
+    client_id: "js",
     redirect_uri: `https://security-api-react-identity.herokuapp.com/callback.html`,
     silent_redirect_uri: `https://security-api-react-identity.herokuapp.com/silent-renew.html`,
     response_type: "id_token token",
