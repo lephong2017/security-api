@@ -4,12 +4,12 @@ import  Oidc from 'oidc-client';
 import * as Config from 'redux/categoryManagement/constants/Config';
 const config = { 
     authority: "https://identityserverphucthinh.azurewebsites.net", 
-    client_id: "js",
-    redirect_uri: `http://localhost:5003/callback.html`,
-    silent_redirect_uri: `http://localhost:5003/silent-renew.html`,
+    client_id: "local",
+    redirect_uri: `https://security-api-react-identity.herokuapp.com/callback.html`,
+    silent_redirect_uri: `https://security-api-react-identity.herokuapp.com/silent-renew.html`,
     response_type: "id_token token",
     scope:"openid profile api.read api.write",
-    post_logout_redirect_uri :`http://localhost:5003/callback.html`,
+    post_logout_redirect_uri :`https://security-api-react-identity.herokuapp.com/callback.html`,
 };
 const mgr = new Oidc.UserManager(config);
 export const login=()=> {
