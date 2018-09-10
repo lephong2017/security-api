@@ -1,9 +1,8 @@
-import * as Types from 'redux/categoryManagement/constants/ActionType';
+import * as Types from './../constants/ActionType';
 
 const isFetching = (state = false, action) => {
     switch (action.type) {
-        case Types.IS_FETCHING_CATE:
-            // console.log(action.isFetching+" : ok ổn");
+        case Types.IS_FETCHING:
             return action.isFetching;
         
         default: return state;

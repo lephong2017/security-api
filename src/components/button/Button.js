@@ -19,30 +19,39 @@ class MyButton extends Component{
 
 
   render(){
-    var { ID,obj,pagination} = this.props;
+    var { ID,obj,pagination,isDisabled} = this.props;
     if(this.props.aria_label==='ADD') {
       return (
         <div>
-          <Button onClick={()=>this.props.onClick} size="small" variant="fab" color="primary" aria-label={this.props.aria_label} className={this.state.propsDemo.button}>
+          <Button disabled={isDisabled} onClick={()=>this.props.onClick} size="small" variant="fab" color="primary" aria-label={this.props.aria_label} className={this.state.propsDemo.button}>
               <AddIcon />
           </Button>
         </div>
       );
     }
     if(this.props.aria_label==='EDIT'){
-      if(ID!==undefined){
+      if(ID!==undefined&&!isDisabled){
         return (
           <div>
             <Link to={`/${obj}/${ID}/${pagination}/edit`} >
-              <Button  size="small"  variant="fab" color="primary" aria-label={this.props.aria_label} className={this.state.propsDemo.button}>
+              <Button disabled={isDisabled}  size="small"  variant="fab" color="primary" aria-label={this.props.aria_label} className={this.state.propsDemo.button}>
                 <EditIcon>edit_icon</EditIcon>
               </Button>
             </Link> 
           </div>
         );
+      }else
+      if(ID!==undefined){
+        return (
+          <div>
+              <Button disabled={isDisabled}  size="small"  variant="fab" color="primary" aria-label={this.props.aria_label} className={this.state.propsDemo.button}>
+                <EditIcon>edit_icon</EditIcon>
+              </Button>
+          </div>
+        );
       }else return (
       <div>
-        <Button onClick={this.props.onClick} size="small" variant="fab" color="primary" aria-label={this.props.aria_label} className={this.state.propsDemo.button}>
+        <Button disabled={isDisabled}  onClick={this.props.onClick} size="small" variant="fab" color="primary" aria-label={this.props.aria_label} className={this.state.propsDemo.button}>
           <EditIcon>edit_icon</EditIcon>
         </Button>
       </div>);
@@ -50,7 +59,7 @@ class MyButton extends Component{
     if(this.props.aria_label==='DELETE'){
       return (
         <div>
-          <Button onClick={this.props.onClickComponent}  
+          <Button disabled={isDisabled}  onClick={this.props.onClickComponent}  
               size="small" variant="fab" color="primary" aria-label={this.props.aria_label} className={this.state.propsDemo.button}>
              <DeleteIcon/>
           </Button>

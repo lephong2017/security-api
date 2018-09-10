@@ -2,22 +2,22 @@ import axios from 'axios';
 import  'babel-polyfill';
 import  Oidc from 'oidc-client';
 import * as Config from 'redux/categoryManagement/constants/Config';
-const config = {
+const config = { 
     authority: "https://identityserverphucthinh.azurewebsites.net", 
     client_id: "js",
     redirect_uri: `http://localhost:5003/callback.html`,
     silent_redirect_uri: `http://localhost:5003/silent-renew.html`,
     response_type: "id_token token",
-    scope:"openid profile api1",
+    scope:"openid profile api.read api.write",
     post_logout_redirect_uri :`http://localhost:5003/callback.html`,
 };
 const mgr = new Oidc.UserManager(config);
 export const login=()=> {
     mgr.signinRedirect();
 }
-export const callApis=(endpoint,method='GET',body)=> {
+export const callApis= (endpoint,method='GET',body)=> {
    return mgr.getUser().then((user) =>{
-        return axios({
+         return  axios({
             url: `${Config.API_URL}/${endpoint}`,
             method,
             headers:{
@@ -26,8 +26,12 @@ export const callApis=(endpoint,method='GET',body)=> {
                 'Authorization': 'Bearer ' + user.access_token,
             },
             data: body
+        }).then(a =>{
+            // console.log(a);
+            return a;
         }).catch(err => {
-            console.log("lephong:"+err);
+    //    console.log(user.access_token);
+    //    console.log("lephong:"+err);
         });
     });
 }

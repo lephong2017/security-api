@@ -3,13 +3,18 @@ import { Link, Route } from 'react-router-dom';
 
 const menus = [
     {
-        name: 'Trang Chủ',
+        name: 'Home',
         to: '/cate-list',
         exact: true
     },
     {
         name : 'Category',
         to : '/cate-list',
+        exact : false
+    },
+    {
+        name : 'Products',
+        to : '/product-list',
         exact : false
     },
     // {
